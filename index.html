@@ -77,8 +77,6 @@
     <ul class="nav-links">
       <li><a href="#music">Music</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#tour">Tour</a></li>
-      <li><a href="#press">Press</a></li>
       <li><a href="#newsletter">Connect</a></li>
     </ul>
   </nav>
@@ -199,162 +197,11 @@
       <p>
         Outside the academic life, I have a lot of hobbies and interests that keep me busy. First of which, I am a local musician. I have been playing the guitar for 10 years, but my foray into Bohol's local music scene only
         started in 2022. I am a core member of a local band called the "<em>Friday Cleaners</em>", in which I serve as the rhythm guitarist, backup vocalist and recording engineer. Still carrying my passions in culture, I became
-        a probationary member of <em>Kasing Sining Inc.</em>, Bohol's premier local and community-based theater group
+        a probationary member of <em>Kasing Sining Inc.</em>, Bohol's premier local and community-based theater group.
       </p>
-
-      <!-- Career statistics row — three numbers with labels -->
-      <div class="about-stat-row">
-        <div class="stat-item">
-          <div class="stat-number">7</div>
-          <div class="stat-label">Studio Albums</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">4M</div>
-          <div class="stat-label">Live Tickets Sold</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">22yr</div>
-          <div class="stat-label">Career</div>
-        </div>
-      </div>
-    </div>
-
   </section>
 
   <hr class="rule">
-
-
-  <!-- ══════════════════════════════════════════════════════════
-       TOUR DATES SECTION
-       Dark background section listing upcoming shows.
-       Each .tour-row uses a 3-column CSS Grid:
-         date (fixed 120px) | venue+city (flexible) | ticket button (auto)
-       JavaScript's IntersectionObserver fades these rows in on scroll.
-       ══════════════════════════════════════════════════════════ -->
-  <section id="tour">
-    <p class="section-label">On the Road</p>
-    <h2 class="section-title">Tour <em>Dates</em></h2>
-
-    <div class="tour-list">
-
-      <!--
-        TOUR ROW STRUCTURE:
-        .tour-row
-          .tour-date           — Month + day (large), year in <span> below
-          div                  — Venue name + city/state
-          .tour-ticket (link)  — Button linking to ticket purchase
-      -->
-      <div class="tour-row">
-        <div class="tour-date">Mar 14<span>2025</span></div>
-        <div>
-          <div class="tour-venue">Red Rocks Amphitheatre</div>
-          <div class="tour-city">Morrison, CO</div>
-        </div>
-        <a href="#" class="tour-ticket">Tickets</a>
-      </div>
-
-      <div class="tour-row">
-        <div class="tour-date">Mar 21<span>2025</span></div>
-        <div>
-          <div class="tour-venue">The Ryman Auditorium</div>
-          <div class="tour-city">Nashville, TN</div>
-        </div>
-        <a href="#" class="tour-ticket">Tickets</a>
-      </div>
-
-      <div class="tour-row">
-        <div class="tour-date">Apr 05<span>2025</span></div>
-        <div>
-          <div class="tour-venue">Royal Albert Hall</div>
-          <div class="tour-city">London, UK</div>
-        </div>
-        <a href="#" class="tour-ticket">Tickets</a>
-      </div>
-
-      <div class="tour-row">
-        <div class="tour-date">Apr 19<span>2025</span></div>
-        <div>
-          <div class="tour-venue">Fillmore San Francisco</div>
-          <div class="tour-city">San Francisco, CA</div>
-        </div>
-        <a href="#" class="tour-ticket">Tickets</a>
-      </div>
-
-      <div class="tour-row">
-        <div class="tour-date">May 02<span>2025</span></div>
-        <div>
-          <div class="tour-venue">Beacon Theatre</div>
-          <div class="tour-city">New York, NY</div>
-        </div>
-        <a href="#" class="tour-ticket">Tickets</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════════
-       MUSIC / DISCOGRAPHY SECTION
-       A responsive grid of album cards.
-       Each card has a square art area and text below.
-       Cards animate in with a staggered delay via CSS nth-child.
-       ══════════════════════════════════════════════════════════ -->
-  <section id="music">
-    <p class="section-label">Discography</p>
-    <!-- <h2>: Second-level heading. Correct hierarchy after <h1>. -->
-    <h2 class="section-title">The <em>Records</em></h2>
-
-    <!--
-      CSS Grid container. The grid columns are defined in styles.css
-      using repeat(auto-fill, minmax(220px, 1fr)) — responsive without
-      media queries.
-    -->
-    <div class="grid">
-
-      <!--
-        ALBUM CARD STRUCTURE:
-        .album-card           — outer wrapper (cursor, animation)
-          .album-art          — clip box (overflow: hidden for zoom effect)
-            .album-art-inner  — the actual art (scales on hover)
-          .album-title        — album name
-          .album-year         — release year
-
-        TO USE REAL ALBUM ART: Replace the .album-art-inner div with:
-          <img src="album-cover.jpg" alt="Album title"
-               style="width:100%;height:100%;object-fit:cover;">
-        and remove the art-1 / art-2 etc. classes.
-      -->
-      <div class="album-card">
-        <div class="album-art">
-          <!-- Real album art: Sob Rock (2021) -->
-          <img src="Sob_Rock.jpeg" alt="Sob Rock" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <div class="album-title">Sob Rock</div>
-        <div class="album-year">2021</div>
-      </div>
-      <div class="album-card">
-        <div class="album-art">
-          <!-- Real album art: Continuum (2006) -->
-          <img src="Continuum_by_John_Mayer__2006_.jpg" alt="Continuum" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <div class="album-title">Continuum</div>
-        <div class="album-year">2006</div>
-      </div>
-      <div class="album-card">
-        <div class="album-art"><div class="album-art-inner art-3"></div></div>
-        <div class="album-title">Room for Squares</div>
-        <div class="album-year">2018</div>
-      </div>
-      <div class="album-card">
-        <div class="album-art"><div class="album-art-inner art-4"></div></div>
-        <div class="album-title">Meridian</div>
-        <div class="album-year">2015</div>
-      </div>
-
-    </div>
-  </section>
-
-  <hr class="rule">
-
 
   <!-- ══════════════════════════════════════════════════════════
        PRESS QUOTE SECTION
@@ -374,14 +221,14 @@
 
     <div class="press-quote">
       <blockquote>
-        "He plays like someone who has heard every conversation the guitar has ever had, and still found something new to say."
+        "This portfolio is stil pretty much in development, but do stop by occassionally! HAHAHAHAHAHA"
 
         <!--
           <span> is an inline, semantically neutral container.
           CSS sets it to display: block so it appears on its own line
           below the quote text, acting as the publication attribution.
         -->
-        <span class="press-source">Rolling Stone</span>
+        <span class="press-source">Sev Daniel</span>
       </blockquote>
     </div>
 
