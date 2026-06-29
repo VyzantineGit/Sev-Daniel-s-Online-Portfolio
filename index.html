@@ -1,0 +1,462 @@
+<!--
+  ============================================================
+  index.html — Musician Portfolio Template
+  ============================================================
+  This is the main HTML file. It contains only the structure
+  and content of the page. Styles and scripts live in their
+  own separate files and are linked below.
+
+  FILE STRUCTURE:
+    index.html  ← You are here (structure & content)
+    styles.css  ← All visual styling
+    script.js   ← All interactive behavior
+
+  IMPORTANT: All three files must be in the SAME folder for
+  the links to work correctly.
+
+  SECTION MAP:
+  1. <head>      — Metadata, font imports, CSS link
+  2. <nav>       — Fixed top navigation bar
+  3. #hero       — Full-screen opening section
+  4. #music      — Discography / album grid
+  5. #about      — Biography + photo + stats
+  6. #tour       — Upcoming tour dates
+  7. #press      — Press quote
+  8. #newsletter — Email signup form
+  9. <footer>    — Logo, social links, copyright
+  10. <script>   — Link to script.js
+  ============================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en"> <!-- Page language -->
+<head>
+  <meta charset="UTF-8"> <!-- Character and emoji support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- mobile-friendly scaling -->
+  <title>Sev's Portfolio</title> <!-- browser tab title -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Connects to Google Fonts to be processed by CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
+  <!--
+    Loads three custom typefaces from Google Fonts:
+    - Playfair Display: Elegant serif for big headings.
+    - Cormorant Garamond: Refined lightweight serif for body text.
+    - Libre Baskerville: Classic serif backup.
+
+    display=swap: Shows a fallback font while loading instead of
+    hiding text, improving perceived performance.
+  -->
+
+  <link rel="stylesheet" href="styles.css"> <!-- CSS file -->
+
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NAVIGATION BAR
+       Fixed to the top of the screen at all times.
+       Logo on the left, navigation links on the right.
+       JavaScript adds the .scrolled class when the user scrolls
+       down, which triggers the frosted-glass background in CSS.
+       ══════════════════════════════════════════════════════════ -->
+  <nav id="nav">
+    <!--
+      id="nav": Used by JavaScript (document.getElementById('nav'))
+      to grab this element and toggle the .scrolled class on scroll.
+    -->
+
+    <!-- Artist name / logo — displayed top-left -->
+    <div class="nav-logo">Sev Daniel Q. Abonete</div>
+
+    <!--
+      <ul> = unordered list. Semantically correct for nav menus.
+      Each <li> = list item containing an anchor link.
+      href="#section-id" scrolls to the matching id on the page.
+      CSS scroll-behavior: smooth (in styles.css) makes it animate.
+    -->
+    <ul class="nav-links">
+      <li><a href="#music">Music</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#tour">Tour</a></li>
+      <li><a href="#press">Press</a></li>
+      <li><a href="#newsletter">Connect</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       HERO SECTION
+       Full-screen opening panel with artist name and intro.
+       Contains three layers:
+         1. .hero-bg — gradient background (pure CSS)
+         2. .hero-visual — spinning vinyl record circles (CSS)
+         3. .hero-content — the text and call-to-action buttons
+       ══════════════════════════════════════════════════════════ -->
+  <section id="hero">
+
+    <!-- Layer 1: Decorative gradient background. No content, styled in CSS. -->
+    <div class="hero-bg"></div>
+
+    <!--
+      Layer 2: The spinning vinyl record visual.
+      This is a single <div> that CSS turns into three concentric circles
+      using the element itself + ::before and ::after pseudo-elements.
+      The spin animation is defined as @keyframes in styles.css.
+    -->
+    <div class="hero-visual"></div>
+
+    <!-- Layer 3: Main text content, stacked vertically by CSS Flexbox. -->
+    <div class="hero-content">
+
+      <!-- Small label above the name. Animates in first (delay: 0.2s). -->
+      <p class="hero-eyebrow">Meet the man</p>
+
+      <!--
+        <h1>: The most important heading on the page.
+        There should only be ONE <h1> per page for SEO and accessibility.
+        The <em> tag wraps the last name to apply italic + gold styling
+        via CSS. <br> forces a line break between first and last name.
+      -->
+      <h1 class="hero-name">
+        Sev Daniel<br>
+        <em>Abonete</em>
+      </h1>
+
+      <!-- Tagline. Animates in third (delay: 0.6s). -->
+      <p class="hero-sub">Musician, Computer Engineering Student, and a jack-of-some-trades.</p>
+
+      <!-- Call-to-action buttons. Animate in last (delay: 0.8s). -->
+      <div class="hero-cta">
+        <!--
+          btn-primary: Solid filled button. Links to the music section.
+          btn-ghost: Text-only button with a gold underline.
+          Both are <a> tags styled to look like buttons via CSS.
+        -->
+        <a href="#about" class="btn-primary">About Me</a>
+        <a href="#tour" class="btn-ghost">Skills and Hobbies</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Visual divider line between sections -->
+  <hr class="rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       ABOUT SECTION
+       Two-column layout: photo on the left, bio text on the right.
+       The section itself IS the CSS Grid container (defined in CSS).
+       Photo has a decorative offset golden frame behind it.
+       ══════════════════════════════════════════════════════════ -->
+  <section id="about">
+
+    <!-- LEFT COLUMN: Photo with decorative offset frame -->
+    <div class="about-image-wrap">
+      <!--
+        Placeholder for the artist photo. The ::before pseudo-element
+        in CSS adds the shadow vignette at the bottom.
+
+        TO USE A REAL PHOTO, replace this div with:
+          <img src="artist-photo.jpg" alt="James Arthur"
+               style="width:100%; display:block;">
+        The .about-frame decorative border will still work automatically.
+      -->
+      <div class="about-image"><img src="images/SevPictureInline.jpeg" alt="Sev Daniel Abonete" style="width:50%; display:block;"></div>
+
+      <!--
+        Decorative golden border rectangle. Positioned absolutely
+        in CSS so it offsets behind and below the photo, creating
+        a layered "floating frame" effect.
+      -->
+      <div class="about-frame"></div>
+    </div>
+
+    <!-- RIGHT COLUMN: Biography text and career stats -->
+    <div class="about-text">
+      <h2 class="section-title">About <em>Me</em></h2>
+
+      <!--
+        <em> inside paragraph text gets the gold italic treatment
+        from the CSS rule: .about-text p em { color: var(--gold); }
+      -->
+      <p>
+        Hi there! I am Sev Daniel Abonete, but most of my friends call me "Sev". I was born in Tagbilaran City, Bohol, Philippines. However, I was raised and now currently spending most of my life in Mariveles, Dauis.
+        I am 21 years old and currently taking up <em>Bachelor of Science in Computer Engineering (BSCpE)</em> at the <em>University of Bohol</em>.
+      </p>
+
+      <p>
+        However, and as I like to tell to people, my education background has been extensive. I spent my entire Pre-School and Elementary life in <em>Prodigy Discovery School</em> and later moved on to Junior 
+        and Senior High School at <em>Bohol Wisdom School</em>. After that, I managed to pass and enroll at the ever-prestigious <em>Bohol Island State University</em> (BSCpE being my first program of choice) but ended 
+        up leaving due to personal and academic reasons.
+      </p>
+
+      <p>
+        Upon transferring to my current university, I tried to take up <em>Bachelor in Culture and Arts Education</em>, which was in a vastly different field from the SHS STEM strand I graduated from. I did 
+        not stay for long in that program and ended up taking a gap semester in order to find myself. Feeling reinvigorated, I decided to retake my first program (of which I was still very fond of despite the 2-year hiatus)
+        and never looked back since. Despite going back to square-one, I have no regrets and am loving every moment of my new Computer Engineering journey.
+      </p>
+
+      <p>
+        Outside the academic life, I have a lot of hobbies and interests that keep me busy. First of which, I am a local musician. I have been playing the guitar for 10 years, but my foray into Bohol's local music scene only
+        started in 2022. I am a core member of a local band called the "<em>Friday Cleaners</em>", in which I serve as the rhythm guitarist, backup vocalist and recording engineer. Still carrying my passions in culture, I became
+        a probationary member of <em>Kasing Sining Inc.</em>, Bohol's premier local and community-based theater group
+      </p>
+
+      <!-- Career statistics row — three numbers with labels -->
+      <div class="about-stat-row">
+        <div class="stat-item">
+          <div class="stat-number">7</div>
+          <div class="stat-label">Studio Albums</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4M</div>
+          <div class="stat-label">Live Tickets Sold</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">22yr</div>
+          <div class="stat-label">Career</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="rule">
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       TOUR DATES SECTION
+       Dark background section listing upcoming shows.
+       Each .tour-row uses a 3-column CSS Grid:
+         date (fixed 120px) | venue+city (flexible) | ticket button (auto)
+       JavaScript's IntersectionObserver fades these rows in on scroll.
+       ══════════════════════════════════════════════════════════ -->
+  <section id="tour">
+    <p class="section-label">On the Road</p>
+    <h2 class="section-title">Tour <em>Dates</em></h2>
+
+    <div class="tour-list">
+
+      <!--
+        TOUR ROW STRUCTURE:
+        .tour-row
+          .tour-date           — Month + day (large), year in <span> below
+          div                  — Venue name + city/state
+          .tour-ticket (link)  — Button linking to ticket purchase
+      -->
+      <div class="tour-row">
+        <div class="tour-date">Mar 14<span>2025</span></div>
+        <div>
+          <div class="tour-venue">Red Rocks Amphitheatre</div>
+          <div class="tour-city">Morrison, CO</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+
+      <div class="tour-row">
+        <div class="tour-date">Mar 21<span>2025</span></div>
+        <div>
+          <div class="tour-venue">The Ryman Auditorium</div>
+          <div class="tour-city">Nashville, TN</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+
+      <div class="tour-row">
+        <div class="tour-date">Apr 05<span>2025</span></div>
+        <div>
+          <div class="tour-venue">Royal Albert Hall</div>
+          <div class="tour-city">London, UK</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+
+      <div class="tour-row">
+        <div class="tour-date">Apr 19<span>2025</span></div>
+        <div>
+          <div class="tour-venue">Fillmore San Francisco</div>
+          <div class="tour-city">San Francisco, CA</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+
+      <div class="tour-row">
+        <div class="tour-date">May 02<span>2025</span></div>
+        <div>
+          <div class="tour-venue">Beacon Theatre</div>
+          <div class="tour-city">New York, NY</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MUSIC / DISCOGRAPHY SECTION
+       A responsive grid of album cards.
+       Each card has a square art area and text below.
+       Cards animate in with a staggered delay via CSS nth-child.
+       ══════════════════════════════════════════════════════════ -->
+  <section id="music">
+    <p class="section-label">Discography</p>
+    <!-- <h2>: Second-level heading. Correct hierarchy after <h1>. -->
+    <h2 class="section-title">The <em>Records</em></h2>
+
+    <!--
+      CSS Grid container. The grid columns are defined in styles.css
+      using repeat(auto-fill, minmax(220px, 1fr)) — responsive without
+      media queries.
+    -->
+    <div class="grid">
+
+      <!--
+        ALBUM CARD STRUCTURE:
+        .album-card           — outer wrapper (cursor, animation)
+          .album-art          — clip box (overflow: hidden for zoom effect)
+            .album-art-inner  — the actual art (scales on hover)
+          .album-title        — album name
+          .album-year         — release year
+
+        TO USE REAL ALBUM ART: Replace the .album-art-inner div with:
+          <img src="album-cover.jpg" alt="Album title"
+               style="width:100%;height:100%;object-fit:cover;">
+        and remove the art-1 / art-2 etc. classes.
+      -->
+      <div class="album-card">
+        <div class="album-art">
+          <!-- Real album art: Sob Rock (2021) -->
+          <img src="Sob_Rock.jpeg" alt="Sob Rock" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="album-title">Sob Rock</div>
+        <div class="album-year">2021</div>
+      </div>
+      <div class="album-card">
+        <div class="album-art">
+          <!-- Real album art: Continuum (2006) -->
+          <img src="Continuum_by_John_Mayer__2006_.jpg" alt="Continuum" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="album-title">Continuum</div>
+        <div class="album-year">2006</div>
+      </div>
+      <div class="album-card">
+        <div class="album-art"><div class="album-art-inner art-3"></div></div>
+        <div class="album-title">Room for Squares</div>
+        <div class="album-year">2018</div>
+      </div>
+      <div class="album-card">
+        <div class="album-art"><div class="album-art-inner art-4"></div></div>
+        <div class="album-title">Meridian</div>
+        <div class="album-year">2015</div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PRESS QUOTE SECTION
+       A single prominent review quote centered on the page.
+       <blockquote> is the correct semantic HTML element for
+       extended quotations from external sources.
+       The large decorative " mark is added purely via CSS ::before.
+       ══════════════════════════════════════════════════════════ -->
+  <section id="press">
+
+    <!--
+      style="text-align:center" is an inline style applied directly
+      on the element. Generally, prefer CSS classes for reusability,
+      but one-off overrides like this are acceptable.
+    -->
+    <p class="section-label" style="text-align:center;">Press</p>
+
+    <div class="press-quote">
+      <blockquote>
+        "He plays like someone who has heard every conversation the guitar has ever had, and still found something new to say."
+
+        <!--
+          <span> is an inline, semantically neutral container.
+          CSS sets it to display: block so it appears on its own line
+          below the quote text, acting as the publication attribution.
+        -->
+        <span class="press-source">Rolling Stone</span>
+      </blockquote>
+    </div>
+
+  </section>
+
+  <hr class="rule">
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       NEWSLETTER / EMAIL SIGNUP SECTION
+       A minimal centered email capture form.
+       onsubmit="return false" prevents the form from navigating
+       away on submit — useful for demos and prototypes.
+       In production, wire this to a service like Mailchimp or
+       a backend endpoint via JavaScript fetch().
+       ══════════════════════════════════════════════════════════ -->
+  <section id="newsletter">
+    <p class="section-label">Stay Close</p>
+    <h2 class="section-title">Join the <em>Conversation</em></h2>
+
+    <form class="newsletter-form" onsubmit="return false;">
+      <!--
+        type="email": Browser validates that the input looks like
+        a valid email address before allowing submission.
+        placeholder: Hint text shown when the field is empty.
+      -->
+      <input type="email" placeholder="Your email address">
+
+      <!--
+        type="submit": Triggers the form's submit event when clicked.
+        The → is a Unicode arrow character in the button label.
+      -->
+      <button type="submit">Subscribe →</button>
+    </form>
+
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+       Three-part horizontal layout:
+       Artist name/logo | Social media links | Copyright notice
+       ══════════════════════════════════════════════════════════ -->
+  <footer>
+
+    <div class="footer-logo">James Arthur</div>
+
+    <!-- Social links — replace href="#" with real profile URLs -->
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Spotify</a>
+      <a href="#">YouTube</a>
+      <a href="#">Twitter</a>
+    </div>
+
+    <!-- © is the HTML entity for the copyright symbol © -->
+    <div class="footer-copy">© 2025 James Arthur. All Rights Reserved.</div>
+
+  </footer>
+
+
+  <!--
+    <script src="script.js"></script>
+    Links the external JavaScript file. Placed at the END of <body>
+    (just before </body>) for two reasons:
+      1. The HTML is fully loaded by the time the script runs,
+         so document.getElementById() and querySelectorAll() can
+         find elements without errors.
+      2. The page renders visually before JS loads, so users don't
+         see a blank screen while the script is being fetched.
+
+    The src path is relative — script.js must be in the same folder
+    as index.html.
+  -->
+  <script src="script.js"></script>
+
+</body>
+</html>

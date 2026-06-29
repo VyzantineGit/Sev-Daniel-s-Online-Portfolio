@@ -1,0 +1,1063 @@
+/*
+  ============================================================
+  styles.css — Portfolio Stylesheet
+  ============================================================
+  This file controls ALL the visual appearance of the page.
+  It is linked from index.html via:
+    <link rel="stylesheet" href="styles.css">
+
+  SECTIONS IN THIS FILE:
+  1.  Global Reset
+  2.  CSS Variables (Design Tokens)
+  3.  Base HTML & Body
+  4.  Noise / Grain Texture Overlay
+  5.  Navigation Bar
+  6.  Hero Section
+  7.  Decorative Vinyl Record
+  8.  Section Divider Lines
+  9.  Shared Section Styles
+  10. Discography / Music Section
+  11. About Section
+  12. Tour Dates Section
+  13. Press Quote Section
+  14. Newsletter Section
+  15. Footer
+  16. Keyframe Animations
+  17. Responsive Design (Mobile)
+  ============================================================
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   1. GLOBAL RESET
+   ──────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/*
+  Universal reset applied to EVERY element (*) including their
+  ::before and ::after pseudo-elements:
+
+  - box-sizing: border-box
+    Changes how element width/height is calculated. By default
+    (content-box), padding and border are ADDED to width. With
+    border-box, they are INCLUDED inside the declared width.
+    Example: A 200px box with 20px padding is still 200px wide.
+
+  - margin: 0; padding: 0
+    Removes browser default spacing. Browsers add their own
+    margins/padding to elements like <h1>, <p>, <ul>, etc.
+    This reset gives you a clean, consistent starting point.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   2. CSS CUSTOM PROPERTIES (Design Tokens / Variables)
+   ──────────────────────────────────────────────────────── */
+
+:root {
+  --cream: #e8ecf0;            /* Continuum: cool light gray — main background  */
+  --warm-white: #f0f3f6;       /* Slightly lighter cool surface                 */
+  --ink: #1a1f26;              /* Deep cool near-black for body text            */
+  --brown: #2a3a4a;            /* Deep slate-blue — replaces warm brown         */
+  --gold: #4ab8c8;             /* Sob Rock cyan/teal — primary accent           */
+  --gold-light: #7dd4df;       /* Lighter teal for dark backgrounds             */
+  --mid: #6a7f90;              /* Muted steel blue-gray for secondary text      */
+  --rule: rgba(42,58,74,0.15); /* Cool slate divider lines                      */
+}
+/*
+  :root selects the top-level <html> element — the highest
+  scope. Variables defined here are available EVERYWHERE in CSS.
+
+  CSS custom properties (variables) start with -- (double dash).
+  You reference them with var(--name). This is the "design token"
+  system — define your palette once, use it everywhere. To restyle
+  the whole site, you only need to change values here.
+
+  Color breakdown (inspired by John Mayer's Continuum + Sob Rock):
+  - --cream:      Main background. Cool light gray (Continuum cover slate).
+  - --warm-white: Slightly lighter cool surface.
+  - --ink:        Deep cool near-black for body text.
+  - --brown:      Deep slate-blue — used where warm brown was (headings, etc.)
+  - --gold:       Cyan/teal accent (Sob Rock's blue-green tone).
+  - --gold-light: Lighter teal for use on dark backgrounds.
+  - --mid:        Muted steel blue-gray for secondary text.
+  - --rule:       Semi-transparent slate for subtle divider lines.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   3. BASE HTML & BODY STYLES
+   ──────────────────────────────────────────────────────── */
+
+html { scroll-behavior: smooth; }
+/*
+  scroll-behavior: smooth — When a user clicks an anchor link
+  like <a href="#about">, instead of jumping instantly, the
+  page scrolls smoothly to the target section.
+*/
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: var(--cream);
+  color: var(--ink);
+  cursor: default;
+  overflow-x: hidden;
+}
+/*
+  Styles applied to the <body> cascade down to ALL child elements
+  unless overridden. This sets the page-wide defaults:
+
+  - font-family: Sets the default text font. 'serif' is the
+    fallback if Cormorant Garamond fails to load.
+  - background: Page background color using our CSS variable.
+  - color: Default text color (dark warm ink).
+  - cursor: default — prevents the text-cursor (I-beam) from
+    appearing over non-text areas.
+  - overflow-x: hidden — clips any content wider than the screen,
+    preventing accidental horizontal scroll bars.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   4. NOISE / GRAIN TEXTURE OVERLAY
+   ──────────────────────────────────────────────────────── */
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1000; opacity: 0.5;
+}
+/*
+  ::before is a CSS pseudo-element that inserts a virtual element
+  BEFORE the body's content — without adding anything to the HTML.
+  We use it here to place a grain texture over the entire page.
+
+  - content: '' — pseudo-elements require a content property to
+    exist, even if empty.
+  - position: fixed — stays fixed to the viewport as you scroll.
+    inset: 0 is shorthand for top:0; right:0; bottom:0; left:0
+    (covers the entire screen).
+  - background-image: An inline SVG data URI (a self-contained image
+    embedded as a URL string). The SVG uses an feTurbulence filter
+    to generate a fractalNoise pattern — this creates the film-grain.
+  - pointer-events: none — the overlay is purely visual. Clicks,
+    hovers, and scrolls pass through it to the content underneath.
+  - z-index: 1000 — sits on top of all other content layers.
+  - opacity: 0.5 — makes it 50% transparent so it's very subtle.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   5. NAVIGATION BAR
+   ──────────────────────────────────────────────────────── */
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 48px;
+  background: transparent;
+  transition: background 0.4s;
+}
+/*
+  - position: fixed — sticks the nav to the top of the screen
+    as the user scrolls.
+  - top/left/right: 0 — anchors it to the top edge, full width.
+  - z-index: 100 — ensures nav stays above page content.
+    (Lower than the noise overlay's 1000, but above sections.)
+  - display: flex — Flexbox layout. Arranges children side-by-side.
+  - align-items: center — vertically centers items in the nav bar.
+  - justify-content: space-between — pushes logo left, links right.
+  - background: transparent — starts invisible so the hero shows through.
+  - transition: background 0.4s — smoothly animates the background
+    color change when the .scrolled class is added via JavaScript.
+*/
+
+nav.scrolled {
+  background: rgba(245,240,232,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+/*
+  This class is toggled by JavaScript when the user scrolls down.
+  - background: rgba(..., 0.92) — semi-transparent cream (92% opaque).
+  - backdrop-filter: blur(10px) — frosted glass effect. Blurs everything
+    behind the nav element. Only works in modern browsers.
+  - border-bottom — adds a subtle divider line below the nav.
+*/
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+/*
+  The artist name shown in the top-left of the nav.
+  - letter-spacing: 0.2em — adds spacing between each letter.
+    em units are relative to the current font size, so spacing
+    scales proportionally if the font size changes.
+  - text-transform: uppercase — converts text to ALL CAPS via CSS,
+    without changing the HTML source.
+*/
+
+.nav-links { display: flex; gap: 36px; list-style: none; }
+/*
+  The <ul> list of nav links:
+  - display: flex — lays list items out in a horizontal row.
+  - gap: 36px — adds 36px of space between each link.
+  - list-style: none — removes default bullet points from <ul>.
+*/
+
+.nav-links a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brown);
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+/*
+  - text-decoration: none — removes the default underline on links.
+  - opacity: 0.75 — links are slightly faded at rest (dimmed).
+  - transition: opacity 0.2s — smoothly animates opacity on hover.
+*/
+
+.nav-links a:hover { opacity: 1; }
+/*
+  :hover pseudo-class applies when the mouse is over the element.
+  Restores full opacity (1 = 100%) for a subtle highlight effect.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   6. HERO SECTION
+   ──────────────────────────────────────────────────────── */
+
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  position: relative;
+  overflow: hidden;
+}
+/*
+  The full-screen opening section:
+  - min-height: 100vh — at minimum, fills the full viewport height.
+    vh = viewport height. 100vh = 100% of the screen height.
+  - display: grid / grid-template-rows: 1fr auto — CSS Grid with two rows.
+    First (1fr) takes all available space; second (auto) fits content.
+  - position: relative — creates a positioning context so absolutely-
+    positioned children (like .hero-bg) position relative to this element.
+  - overflow: hidden — clips the spinning circle so it doesn't
+    create scroll bars.
+*/
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 50%, rgba(74,184,200,0.07) 0%, transparent 70%),
+    linear-gradient(160deg, #e8ecf0 0%, #d6dde5 100%);
+}
+/*
+  A layered background using two gradients stacked:
+  - position: absolute; inset: 0 — stretches to fill the entire hero.
+  - radial-gradient: Creates an elliptical gold glow on the left side.
+    Very subtle at 8% opacity — adds warmth without distracting.
+  - linear-gradient: A slight diagonal cream-to-beige shift for depth.
+  Multiple CSS backgrounds are comma-separated, painted front to back.
+*/
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 60px;
+  position: relative; z-index: 2;
+}
+/*
+  - display: flex; flex-direction: column — stacks children vertically.
+  - justify-content: center — vertically centers within the flex container.
+  - padding: top 120px clears the fixed nav bar (~80px tall).
+  - z-index: 2 — text sits above the .hero-bg background layer.
+*/
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+}
+/*
+  Small label above the main title ("New Album Out Now"):
+  - opacity: 0 — starts invisible; animation reveals it.
+  - animation: fadeUp 0.8s 0.2s forwards
+    • fadeUp: the @keyframes name (defined in section 16)
+    • 0.8s: animation duration
+    • 0.2s: delay before starting
+    • forwards: holds the final state (visible) after it ends.
+*/
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 700;
+  line-height: 0.92;
+  color: var(--brown);
+  letter-spacing: -0.01em;
+  opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+}
+/*
+  The large artist name heading:
+  - clamp(4rem, 10vw, 9rem): Fluid responsive font size.
+    • Min: 4rem | Preferred: 10% of viewport width | Max: 9rem
+    This single property replaces multiple @media breakpoints.
+  - line-height: 0.92 — tighter than normal (1.0) for big display type.
+  - letter-spacing: -0.01em — very slight negative tracking,
+    common for large type to feel more refined and intentional.
+*/
+
+.hero-name em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+/*
+  The <em> wrapping the last name:
+  - display: block — forces it onto its own line (by default <em>
+    is inline and would sit on the same line as adjacent text).
+*/
+
+.hero-sub {
+  margin-top: 32px;
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--mid);
+  max-width: 460px;
+  line-height: 1.6;
+  font-weight: 300;
+  opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
+}
+/*
+  Tagline/subtitle:
+  - max-width: 460px — constrains line length for readability.
+    Long lines are harder to read; ~60-75 chars per line is ideal.
+  - line-height: 1.6 — 160% of font size. Generous for readability.
+  - font-weight: 300 — light, contrasts with the bold heading above.
+*/
+
+.hero-cta {
+  margin-top: 48px;
+  display: flex; gap: 20px; align-items: center;
+  opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+}
+/*
+  Button group — last element in the staggered entrance sequence.
+  delay 0.8s fires after eyebrow (0.2s), name (0.4s), sub (0.6s).
+*/
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--brown);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+}
+/*
+  - display: inline-block — needed for <a> tags to respect padding.
+    By default <a> is inline (ignores top/bottom padding).
+  - transition: animates background color and vertical position on hover.
+*/
+
+.btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+/*
+  On hover: gold background + lifts 2px upward.
+  translateY(-2px) creates a subtle "pop" signaling interactivity.
+*/
+
+/* GHOST BUTTON */
+.btn-ghost {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+/*
+  Text-only button with a decorative underline:
+  - border-bottom instead of text-decoration gives precise control
+    over color, thickness, and gap from the text.
+  - padding-bottom: 2px — small gap between text and the line.
+*/
+
+.btn-ghost:hover { color: var(--gold); }
+
+
+/* ──────────────────────────────────────────────────────────
+   7. DECORATIVE VINYL RECORD (Hero right side)
+   ──────────────────────────────────────────────────────── */
+
+.hero-visual {
+  position: absolute;
+  right: -80px; top: 50%;
+  transform: translateY(-50%);
+  width: clamp(380px, 50vw, 680px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  animation: spin 60s linear infinite;
+  opacity: 0.22;
+}
+/*
+  Large decorative circle suggesting a spinning vinyl record:
+  - right: -80px — hangs partially off-screen for depth.
+  - top: 50%; transform: translateY(-50%) — vertical centering trick
+    for absolutely-positioned elements.
+  - aspect-ratio: 1 — forces perfect square → with border-radius: 50% = circle.
+  - animation: spin 60s linear infinite — continuous rotation.
+    "linear" = constant speed. "infinite" = loops forever.
+  - opacity: 0.22 — very faint background texture, not a distraction.
+*/
+
+.hero-visual::before {
+  content: '';
+  position: absolute; inset: 14%;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+}
+/*
+  ::before creates an inner ring inside the vinyl circle.
+  inset: 14% = top/right/bottom/left all 14% from the parent edges.
+*/
+
+.hero-visual::after {
+  content: '';
+  position: absolute; inset: 28%;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.4;
+}
+/*
+  ::after creates the central "label" disc on the record.
+  Three concentric circles (element + ::before + ::after) mimic
+  a vinyl record's anatomy entirely in CSS — no images needed.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   8. SECTION DIVIDER LINES
+   ──────────────────────────────────────────────────────── */
+
+hr.rule { border: none; border-top: 1px solid var(--rule); margin: 0 48px; }
+/*
+  Horizontal rules (<hr> tags) used between sections:
+  - border: none — removes the default 3D-look browser border on <hr>.
+  - border-top: 1px solid — replaces it with a single clean line.
+  - margin: 0 48px — indents the line on both sides so it doesn't
+    stretch edge to edge, matching the section padding.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   9. SHARED SECTION STYLES
+   ──────────────────────────────────────────────────────── */
+
+section { padding: 100px 48px; }
+/*
+  Applied to ALL <section> elements. 100px top/bottom breathing
+  room, 48px left/right margin. Individual sections can override.
+*/
+
+.section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+/*
+  Small category label above section titles (e.g., "Discography").
+  Tiny, widely-tracked uppercase gold text — a typographic technique
+  called an "eyebrow" heading. Creates hierarchy and context.
+*/
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--brown);
+}
+/*
+  Reusable large section heading. font-weight: 400 (regular) lets
+  Playfair Display's natural elegance show without heavy bold weight.
+*/
+
+.section-title em { font-style: italic; }
+/*
+  Parts of section titles wrapped in <em> get italic styling,
+  adding typographic variety and emphasis to key words.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   10. DISCOGRAPHY / MUSIC SECTION
+   ──────────────────────────────────────────────────────── */
+
+#music .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 32px;
+  margin-top: 60px;
+}
+/*
+  CSS Grid for album cards:
+  - repeat(auto-fill, minmax(220px, 1fr)):
+    • auto-fill: creates as many columns as will fit.
+    • minmax(220px, 1fr): each column is at least 220px, but
+      expands equally to fill remaining space.
+    Responsive without media queries — adapts to any screen width.
+  - gap: 32px — space between grid cells (rows and columns).
+*/
+
+.album-card {
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeUp 0.6s forwards;
+}
+/*
+  Each card starts invisible and animates in.
+  cursor: pointer — hand cursor signals the card is clickable.
+*/
+
+/* Staggered animation delays — cards appear one after another */
+.album-card:nth-child(1) { animation-delay: 0.1s; }
+.album-card:nth-child(2) { animation-delay: 0.2s; }
+.album-card:nth-child(3) { animation-delay: 0.3s; }
+.album-card:nth-child(4) { animation-delay: 0.4s; }
+/*
+  :nth-child(n) selects elements by position among siblings.
+  Each card gets a later delay, creating a "cascade" entrance
+  rather than all cards appearing simultaneously.
+*/
+
+.album-art {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative;
+}
+/*
+  The square container for album artwork:
+  - aspect-ratio: 1 — maintains a perfect square at any width.
+  - overflow: hidden — clips the scaling inner element so the
+    hover zoom doesn't bleed outside the box.
+*/
+
+.album-art-inner {
+  width: 100%; height: 100%;
+  transition: transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
+}
+/*
+  The inner element that scales on hover.
+  cubic-bezier easing: a custom acceleration curve that mimics
+  physical momentum — fast start, then decelerates smoothly.
+  (0.25,0.1,0.25,1) is similar to the "ease" preset but snappier.
+*/
+
+.album-card:hover .album-art-inner { transform: scale(1.04); }
+/*
+  When hovering the card, inner art scales to 104%.
+  overflow: hidden on .album-art clips it — smooth zoom effect
+  without growing outside the box. scale(1) = 100% original size.
+*/
+
+/* Placeholder gradient backgrounds — inspired by Continuum + Sob Rock palette */
+.art-1 { background: linear-gradient(135deg, #8fb0c0 0%, #5a8fa0 50%, #4ab8c8 100%); } /* Sob Rock powder blue → cyan */
+.art-2 { background: linear-gradient(135deg, #6a7a8a 0%, #8a9aaa 50%, #b0c4d0 100%); } /* Continuum cool gray slate  */
+.art-3 { background: linear-gradient(135deg, #2a3a4a 0%, #3a5060 50%, #5a7080 100%); } /* Deep Continuum navy-slate   */
+.art-4 { background: linear-gradient(135deg, #a0bac8 0%, #7ab0c0 50%, #4ab8c8 100%); } /* Soft blue → teal fade       */
+/*
+  Each album gets a unique diagonal gradient as a stand-in for real art.
+  135deg = diagonal from top-left to bottom-right.
+  To use real images, replace with: background-image: url('album.jpg');
+  and add: background-size: cover; background-position: center;
+*/
+
+.album-art-inner::after {
+  content: '♪';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+  color: rgba(255,255,255,0.15);
+}
+/*
+  A music note centered over each placeholder via ::after.
+  Very low opacity (15%) creates a subtle watermark effect.
+  Remove this block when using real album art images.
+*/
+
+.album-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--brown);
+  margin-bottom: 4px;
+}
+
+.album-year {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+}
+
+
+/* ──────────────────────────────────────────────────────────
+   11. ABOUT SECTION (Two-Column Layout)
+   ──────────────────────────────────────────────────────── */
+
+#about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+/*
+  Two equal columns via CSS Grid:
+  - 1fr 1fr: two equally-sized columns.
+  - align-items: center — vertically aligns both columns to their
+    midpoints, so neither floats to the top of the row.
+*/
+
+.about-image-wrap { position: relative; }
+/*
+  position: relative makes this a positioning context so
+  .about-frame (decorative border) can use position: absolute
+  relative to this wrapper, not the whole page.
+*/
+
+.about-img-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(160deg, #b0bec8 0%, #6a8a9a 100%);
+  position: relative;
+  overflow: hidden;
+}
+/*
+  Portrait-proportioned photo placeholder:
+  - aspect-ratio: 3/4 — portrait orientation (3 wide, 4 tall).
+  - To use a real photo: replace the div with:
+    <img src="photo.jpg" alt="Artist" style="width:100%;display:block;">
+*/
+
+.about-img-placeholder::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -20%; right: -20%;
+  height: 60%;
+  background: rgba(20,30,40,0.35);
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+/*
+  A dramatic vignette shadow at the bottom of the photo:
+  - left/right: -20% — extends beyond edges so the ellipse looks natural.
+  - clip-path: ellipse(...) — clips the shadow into an oval shape.
+    Creates a rounded "pool of shadow" at the base, adding cinematic depth.
+*/
+
+.about-frame {
+  position: absolute;
+  top: 20px; left: 20px; right: -20px; bottom: -20px;
+  border: 1px solid var(--gold);
+  z-index: -1;
+}
+/*
+  Decorative rectangular frame offset behind the photo:
+  - Positioned 20px down and right from the photo, and 20px beyond
+    its bottom-right corner — creating an "offset frame" effect.
+  - z-index: -1 — placed behind the image wrapper.
+  - Classic design pattern: the photo appears to float in front of
+    a golden border rectangle.
+*/
+
+.about-text p {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--brown);
+  margin-top: 28px;
+}
+
+.about-text p + p { margin-top: 16px; }
+/*
+  p + p is the adjacent sibling selector: targets a <p> that
+  directly follows another <p>. Adds spacing only between paragraphs,
+  not above the very first one.
+*/
+
+.about-text p em { color: var(--gold); font-style: italic; }
+
+.about-stat-row {
+  display: flex; gap: 48px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+/*
+  Row of key statistics below the biography.
+  border-top acts as a visual divider separating stats from body text.
+*/
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-top: 4px;
+}
+
+
+/* ──────────────────────────────────────────────────────────
+   12. TOUR DATES SECTION
+   ──────────────────────────────────────────────────────── */
+
+#tour { background: #1e2d3d; color: var(--cream); }
+/*
+  Dark background to visually separate tour from surrounding sections.
+  Setting color here overrides the body default for all text inside.
+*/
+
+#tour .section-title { color: var(--cream); }
+#tour .section-label { color: var(--gold-light); }
+/*
+  Override default dark colors with lighter values for the
+  dark background. --gold-light is brighter and more readable
+  on dark surfaces than the standard --gold.
+*/
+
+.tour-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(245,240,232,0.12);
+  gap: 32px;
+  transition: background 0.2s;
+}
+/*
+  Each show in a 3-column grid:
+  - 120px: fixed date column.
+  - 1fr: venue/city (takes all remaining space).
+  - auto: ticket button (only as wide as needed).
+  - border-bottom: separator line between rows.
+  - transition: background enables the hover highlight effect.
+*/
+
+.tour-row:first-child { border-top: 1px solid rgba(245,240,232,0.12); }
+/*
+  :first-child adds a top border ONLY to the first row,
+  completing the bordered list without duplicate borders on others.
+*/
+
+.tour-row:hover { background: rgba(184,146,58,0.06); }
+/* Subtle gold tint on hover communicates the row is interactive. */
+
+.tour-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+.tour-date span {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+  font-family: 'Cormorant Garamond', serif;
+  margin-top: 4px;
+}
+/*
+  The year shown on its own line below the date.
+  display: block forces it to a new line. Low opacity makes it recede.
+*/
+
+.tour-venue { font-size: 1.1rem; color: var(--cream); }
+.tour-city { font-size: 0.85rem; color: rgba(245,240,232,0.5); letter-spacing: 0.08em; margin-top: 4px; }
+
+.tour-ticket {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+/* Outline-style button — just a border, no fill at rest. */
+
+.tour-ticket:hover { background: var(--gold); color: var(--brown); }
+/*
+  "Fills in" on hover — gold background, brown text.
+  An inversion of the resting state (classic outline button pattern).
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   13. PRESS QUOTE SECTION
+   ──────────────────────────────────────────────────────── */
+
+#press { overflow: hidden; }
+
+.press-quote {
+  max-width: 820px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+/*
+  Centers the quote block:
+  - max-width + margin auto: the "auto margin centering" technique
+    for block elements. Centers horizontally within the section.
+*/
+
+.press-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--brown);
+  position: relative;
+  padding: 0 40px;
+}
+
+.press-quote blockquote::before {
+  content: '\201C';
+  position: absolute; left: 0; top: -20px;
+  font-size: 5rem;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.5;
+}
+/*
+  Decorative opening quotation mark:
+  - content: '\201C' — Unicode for " (left double quote character).
+  - Absolutely positioned to the upper-left of the blockquote.
+  - Large (5rem) and partially transparent — typographic decoration.
+*/
+
+.press-source {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 28px;
+}
+/* Publication name ("Rolling Stone") — styled as a standalone block. */
+
+
+/* ──────────────────────────────────────────────────────────
+   14. NEWSLETTER SECTION
+   ──────────────────────────────────────────────────────── */
+
+#newsletter {
+  text-align: center;
+  padding: 100px 48px;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(74,184,200,0.08) 0%, transparent 80%),
+    var(--cream);
+}
+/*
+  Centered section with a soft golden glow layered over cream.
+  The glow is centered (50% 50%) and very subtle (10% opacity).
+*/
+
+.newsletter-form {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+  border-bottom: 2px solid var(--brown);
+}
+/*
+  "Underline" form style — no box border, just a bottom line.
+  Flexbox places input and button side by side.
+  max-width + auto margins center it within the section.
+*/
+
+.newsletter-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--brown);
+  letter-spacing: 0.05em;
+}
+/*
+  - flex: 1 — input expands to fill all available space,
+    pushing the submit button to the right.
+  - background: transparent; border: none; outline: none —
+    strips all default browser input styling.
+  - font-family must be explicitly set — browsers don't automatically
+    inherit body fonts for form inputs.
+*/
+
+.newsletter-form input::placeholder { color: var(--mid); opacity: 0.6; }
+/* Styles the placeholder text color. */
+
+.newsletter-form button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 14px 0 14px 20px;
+  transition: color 0.2s;
+}
+/* Submit button styled as plain text — no button chrome/borders. */
+
+.newsletter-form button:hover { color: var(--brown); }
+
+
+/* ──────────────────────────────────────────────────────────
+   15. FOOTER
+   ──────────────────────────────────────────────────────── */
+
+footer {
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--rule);
+}
+/*
+  Three-part horizontal footer: logo | social links | copyright.
+  justify-content: space-between spreads them evenly across the width.
+*/
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+
+.footer-social { display: flex; gap: 24px; }
+
+.footer-social a {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-social a:hover { color: var(--gold); }
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: var(--mid);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+/* Copyright — smallest, most faded element in the footer. */
+
+
+/* ──────────────────────────────────────────────────────────
+   16. KEYFRAME ANIMATIONS
+   ──────────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/*
+  @keyframes defines a named animation sequence.
+  "fadeUp" transitions an element from:
+    - opacity: 0 (invisible) + 28px below → opacity: 1 + original position
+  Elements appear to "rise up" while fading in.
+  Used by hero text and album cards.
+*/
+
+@keyframes spin {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+/*
+  Rotates the .hero-visual circle one full revolution (360°).
+  translateY(-50%) is preserved in BOTH keyframes — without it,
+  the vertical centering would be lost during the animation.
+*/
+
+
+/* ──────────────────────────────────────────────────────────
+   17. RESPONSIVE DESIGN (Mobile Breakpoint)
+   ──────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /*
+    @media (max-width: 768px): These styles ONLY apply when the
+    screen is 768px wide or narrower (tablets and phones).
+    Rules here OVERRIDE the desktop styles above.
+  */
+
+  nav { padding: 18px 24px; }
+
+  .nav-links { display: none; }
+  /* Hides nav links on mobile. In production, replace with a hamburger menu. */
+
+  section { padding: 72px 24px; }
+  /* Reduced side padding on narrow screens to use more of the width. */
+
+  hr.rule { margin: 0 24px; }
+
+  #about { grid-template-columns: 1fr; gap: 48px; }
+  /* Switches About from 2-column to single column (stacked). */
+
+  footer { flex-direction: column; gap: 24px; text-align: center; }
+  /* Stacks footer items vertically instead of side by side. */
+
+  .hero-content { padding: 100px 24px 60px; }
+
+  .hero-visual { display: none; }
+  /* Hides the vinyl record decoration on small screens. */
+
+  .tour-row { grid-template-columns: 90px 1fr; }
+  /* Drops the ticket button column on mobile to save space. */
+
+  .tour-ticket { display: none; }
+  /* Hides ticket buttons on mobile (removes the third grid column). */
+}
